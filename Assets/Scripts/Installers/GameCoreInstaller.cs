@@ -4,7 +4,7 @@ using Plugins.GameCycle;
 using UnityEngine;
 using Zenject;
 
-namespace GamePlay.Installers
+namespace Installers
 {
     [CreateAssetMenu(fileName = "GameInstaller", menuName = "Installers/GameInstaller", order = 0)]
     public class GameCoreInstaller : ScriptableObjectInstaller

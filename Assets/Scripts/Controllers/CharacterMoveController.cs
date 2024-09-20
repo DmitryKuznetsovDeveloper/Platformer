@@ -25,12 +25,14 @@ namespace Controllers
 
         public void Tick()
         {
-            _characterSprite.flipX = _moveUserInputData.MoveInputData.x < 0;
             var direction =
-                new Vector3(_moveUserInputData.MoveInputData.x, 0f, _moveUserInputData.MoveInputData.y) *
+                new Vector3(_moveUserInputData.MoveInputData.x, 0f, 0f) *
                 (_speed * Time.deltaTime);
-            if (!direction.Equals(Vector3.zero)) 
+            if (!direction.Equals(Vector3.zero))
+            {
+                _characterSprite.flipX = _moveUserInputData.MoveInputData.x < 0;
                 _characterTransform.position += direction;
+            }
         }
     }
 }

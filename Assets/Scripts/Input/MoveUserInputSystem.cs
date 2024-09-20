@@ -20,12 +20,12 @@ namespace Input
         {
             _moveActon = new InputAction("move", binding: "<Gamepad>/LeftStick");
             _moveActon.AddCompositeBinding("Dpad")
-                .With("ArrowLeft", "<Gamepad>/left")
-                .With("ArrowRight", "<Gamepad>/right")
-                .With("KeyboardArrowRight", "<Keyboard>/right arrow")
-                .With("KeyboardArrowLeft", "<Keyboard>/left arrow")
+                .With("Left", "<Gamepad>/Dpad/left")
+                .With("Right", "<Gamepad>/Dpad/right")
                 .With("Left", "<Keyboard>/a")
-                .With("Right", "<Keyboard>/d");
+                .With("Right", "<Keyboard>/d")
+                .With("Left", "<Keyboard>/leftArrow")
+                .With("Right", "<Keyboard>/rightArrow");
 
             _moveActon.started += context => { _moveInput = context.ReadValue<Vector2>(); };
             _moveActon.performed += context => { _moveInput = context.ReadValue<Vector2>(); };

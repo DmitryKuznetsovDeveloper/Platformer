@@ -10,10 +10,10 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Ground
+  - 
   - Water
   - UI
-  - 
+  - Ground
   - 
   - 
   - 
@@ -43,6 +43,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Back
+    uniqueID: 55044255
+    locked: 0
   - name: Ground
     uniqueID: 2781087617
+    locked: 0
+  - name: Props
+    uniqueID: 153754171
+    locked: 0
+  - name: Character
+    uniqueID: 2944025859
     locked: 0

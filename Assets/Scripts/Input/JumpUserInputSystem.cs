@@ -6,7 +6,7 @@ using Zenject;
 
 namespace Input
 {
-    public class JumpUserInputSystem : IInitializable,IGameTickable, IDisposable
+    public sealed class JumpUserInputSystem : IInitializable,IGameTickable, IDisposable
     {
         private InputAction _jumpActionGamePad;
         private InputAction _jumpActionKeyboard;
@@ -18,18 +18,18 @@ namespace Input
         void IInitializable.Initialize() 
         {
             _jumpActionGamePad = new InputAction("jumpGamepad", binding: "<Gamepad>/Cross");
-            _jumpActionKeyboard = new InputAction("jumpKeyboard", binding: "<Keyboard>/Space");
-            
             _jumpActionGamePad.performed += _ => _jumpInput = true;
             _jumpActionGamePad.canceled += _ => _jumpInput = false;
             _jumpActionGamePad.Enable();
+   
+            _jumpActionKeyboard = new InputAction("jumpKeyboard", binding: "<Keyboard>/Space");
             _jumpActionKeyboard.performed += _ => _jumpInput = true;
             _jumpActionKeyboard.canceled += _ => _jumpInput = false;
             _jumpActionKeyboard.Enable();
         }
 
         void IGameTickable.Tick(float deltaTime) =>
-            _inputData.JumpInputData = _jumpInput;
+            _inputData.IsJumpInputData = _jumpInput;
 
         void IDisposable.Dispose()
         {

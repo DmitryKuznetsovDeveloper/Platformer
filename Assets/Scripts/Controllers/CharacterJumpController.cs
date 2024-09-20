@@ -7,7 +7,6 @@ namespace Controllers
 {
     public sealed class CharacterJumpController :IGameTickable
     {
-        private bool _grounded = true;
         private JumpUserInputData _jumpUserInputData;
         private JumpComponent _jumpComponent;
 
@@ -21,7 +20,7 @@ namespace Controllers
 
         public void Tick(float deltaTime)
         {
-            if (_jumpComponent.IsGrounded && _jumpUserInputData.JumpInputData) 
+            if (_jumpComponent.IsGrounded && _jumpUserInputData.IsJumpInputData) 
                 _jumpComponent.Jump();
         }
     }
