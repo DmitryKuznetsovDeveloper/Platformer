@@ -6,6 +6,6 @@ namespace Installers
     public class UIMenuInstaller : MonoInstaller
     {
         public override void InstallBindings() => 
-            Container.BindInterfacesTo<MenuScreenView>().FromComponentsInHierarchy().AsSingle().NonLazy();
+            Container.BindInterfacesTo<MenuScreen>().FromComponentsInHierarchy().AsSingle().NonLazy();
     }
 }

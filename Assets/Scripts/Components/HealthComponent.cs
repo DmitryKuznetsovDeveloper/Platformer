@@ -12,14 +12,19 @@ namespace Components
         public bool IsHealthFull() => health == maxHitPoints;
         public int GetCurrentHitPoints() => health;
 
+        
         [SerializeField, Min(0)] private int maxHitPoints = 10;
         [SerializeField, Min(0)] private int health = 3;
+
         
         public void TakeDamage(int damage)
         {
             health = Math.Max(0, health - damage);
             if (health <= 0)
-                OnDeath?.Invoke();
+            {
+                OnDeath?.Invoke(); 
+                Debug.Log("OnDeath");
+            }
             else
             {
                 OnTakeDamage?.Invoke(damage);

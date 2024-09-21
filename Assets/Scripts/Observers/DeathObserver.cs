@@ -1,10 +1,11 @@
 ﻿using Components;
-using Plugins.GameCycle;
 using SampleGame;
+using UnityEngine;
+using Zenject;
 
 namespace Observers
 {
-    public sealed class DeathObserver : IGameStartListener, IGameFinishListener
+    public sealed class DeathObserver : IInitializable, IGameFinishListener
     {
         private readonly HealthComponent _healthComponent;
         private readonly GameManager _gameManager;
@@ -16,13 +17,16 @@ namespace Observers
             _healthComponent = healthComponent;
             _gameManager = gameManager;
         }
-         void IGameStartListener.OnStartGame() => 
-             _healthComponent.OnDeath += SetOnDeath;
+         void IInitializable.Initialize()
+         {
+             _healthComponent.OnDeath += _gameManager.FinishGame;
+             Debug.Log($"+++Death podpisca");
+         }
 
-         void IGameFinishListener.OnFinishGame() => 
-             _healthComponent.OnDeath -= SetOnDeath;
-
-         private void SetOnDeath() => _gameManager.FinishGame();
-
+         void IGameFinishListener.OnFinishGame()
+         {
+             _healthComponent.OnDeath -= _gameManager.FinishGame;
+             Debug.Log($"---Death otpodpisca");
+         }
     }
 }

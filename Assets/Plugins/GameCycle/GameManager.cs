@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using SampleGame;
 using UnityEngine;
+using Zenject;
 
-namespace Plugins.GameCycle
+namespace SampleGame
 {
     public sealed class GameManager
     {
@@ -16,82 +16,101 @@ namespace Plugins.GameCycle
         private readonly List<IGameListener> listeners = new();
         
 
-        public void AddListener(IGameListener listener) => 
-            listeners.Add(listener);
+        public void AddListener(IGameListener listener)
+        {
+            this.listeners.Add(listener);
+        }
 
-        public void RemoveListener(IGameListener listener) => 
-            listeners.Remove(listener);
+        public void RemoveListener(IGameListener listener)
+        {
+            this.listeners.Remove(listener);
+        }
 
         public void StartGame()
         {
-            if (State != GameState.OFF)
-                return;
-
-            //Cursor.lockState = CursorLockMode.Locked;
-           // Cursor.visible = false;
-            Time.timeScale = 1;
-            foreach (var it in listeners)
+            if (this.State != GameState.OFF)
             {
-                if (it is IGameStartListener listener) 
+                return;
+            }
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            Time.timeScale = 1;
+            foreach (var it in this.listeners)
+            {
+                if (it is IGameStartListener listener)
+                {
                     listener.OnStartGame();
+                }
             }
             
-            State = GameState.PLAY;
-            OnGameStarted?.Invoke();
+            this.State = GameState.PLAY;
+            this.OnGameStarted?.Invoke();
             Debug.Log("Game Started");
         }
 
         public void PauseGame()
         {
-            if (State != GameState.PLAY)
+            if (this.State != GameState.PLAY)
+            {
                 return;
+            }
 
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
             Time.timeScale = 0;
-            foreach (var it in listeners)
+            foreach (var it in this.listeners)
             {
-                if (it is IGamePauseListener listener) 
+                if (it is IGamePauseListener listener)
+                {
                     listener.OnPauseGame();
+                }
             }
             
-            State = GameState.PAUSE;
-            OnGamePaused?.Invoke();
+            this.State = GameState.PAUSE;
+            this.OnGamePaused?.Invoke();
             Debug.Log("Game Paused");
         }
         
         public void ResumeGame()
         {
-            if (State != GameState.PAUSE)
+            if (this.State != GameState.PAUSE)
+            {
                 return;
-            
+            }
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             Time.timeScale = 1;
-            foreach (var it in listeners)
+            foreach (var it in this.listeners)
             {
-                if (it is IGameResumeListener listener) 
+                if (it is IGameResumeListener listener)
+                {
                     listener.OnResumeGame();
+                }
             }
             
-            State = GameState.PLAY;
-            OnGameResumed?.Invoke();
+            this.State = GameState.PLAY;
+            this.OnGameResumed?.Invoke();
             Debug.Log("Game Resumed");
         }
         
         public void FinishGame()
         {
-            if (State is not (GameState.PAUSE or GameState.PLAY))
-                return;
-            
-            foreach (var it in listeners)
+            if (this.State is not (GameState.PAUSE or GameState.PLAY))
             {
-                if (it is IGameFinishListener listener) 
-                    listener.OnFinishGame();
+                return;
             }
             
-            State = GameState.FINISH;
-            OnGameFinished?.Invoke();
+            foreach (var it in this.listeners)
+            {
+                if (it is IGameFinishListener listener)
+                {
+                    listener.OnFinishGame();
+                }
+            }
+            
+            this.State = GameState.FINISH;
+            this.OnGameFinished?.Invoke();
             Debug.Log("Game Finished");
         }
     }

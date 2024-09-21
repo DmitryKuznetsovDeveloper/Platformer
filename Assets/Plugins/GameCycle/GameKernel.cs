@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using Plugins.GameCycle;
+using SampleGame;
 using UnityEngine;
 using Zenject;
 
-namespace SampleGame
+namespace Plugins.GameCycle
 {
     public sealed class GameKernel : MonoKernel,
         IGameStartListener, 

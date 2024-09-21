@@ -35,15 +35,17 @@ namespace Installers
             Container.Bind<CinemachineVirtualCamera>().FromComponentInHierarchy().AsSingle().NonLazy();
             Container.Bind<CapsuleCollider2D>().FromComponentInHierarchy().AsSingle().NonLazy();
             Container.Bind<SpriteRenderer>().FromComponentInHierarchy().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<JumpComponent>().FromComponentInHierarchy().AsSingle().NonLazy();
+            
             Container.Bind<HealthComponent>().FromComponentInHierarchy().AsSingle().NonLazy();
             Container.BindInterfacesTo<DeathObserver>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<JumpComponent>().FromComponentInHierarchy().AsSingle().NonLazy();
             
             //Animations
             Container.Bind<Animator>().FromComponentInHierarchy().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<MoveAnimatorController>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<JumpAnimationController>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<AttackAnimationController>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<DeathAnimationController>().AsSingle().NonLazy();
         }
     }
 }

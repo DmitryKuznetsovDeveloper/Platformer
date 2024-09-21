@@ -1,10 +1,10 @@
 using Data;
+using SampleGame;
 using UnityEngine;
-using Zenject;
 
 namespace Controllers
 {
-    public sealed class CharacterMoveController : ITickable
+    public sealed class CharacterMoveController : IGameTickable
     {
         private readonly MoveUserInputData _moveUserInputData;
         private readonly SpriteRenderer _characterSprite;
@@ -23,7 +23,7 @@ namespace Controllers
             _speed = speed;
         }
 
-        public void Tick()
+        public void Tick(float deltaTime)
         {
             var direction =
                 new Vector3(_moveUserInputData.MoveInputData.x, 0f, 0f) *

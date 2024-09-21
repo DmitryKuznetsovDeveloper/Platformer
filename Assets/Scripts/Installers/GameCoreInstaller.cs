@@ -1,6 +1,6 @@
 ﻿using Controllers;
 using Game;
-using Plugins.GameCycle;
+using SampleGame;
 using UnityEngine;
 using Zenject;
 
@@ -11,11 +11,12 @@ namespace Installers
     {
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<GameManager>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<GameController>().AsSingle();
-            Container.BindInterfacesAndSelfTo<GameLauncher>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<ApplicationExiter>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<GameTimer>().AsSingle();
+            Container.Bind<GameManager>().AsSingle().NonLazy();
+            Container.Bind<GameLauncher>().AsCached().NonLazy();
+            Container.Bind<ApplicationExiter>().AsCached().NonLazy();
+            
+            Container.BindInterfacesTo<GameController>().AsCached().NonLazy();
+            Container.BindInterfacesAndSelfTo<GameTimer>().AsSingle().NonLazy();
             
         }
     }
