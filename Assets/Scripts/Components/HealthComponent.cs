@@ -5,17 +5,15 @@ namespace Components
 {
     public sealed class HealthComponent : MonoBehaviour
     {
-        public event Action<int> OnRestoreHealth;
+        public event Action<int> OnChangeHealth;
         public event Action<int> OnTakeDamage;
         public event Action OnDeath;
         public bool IsAlive() => health > 0;
         public bool IsHealthFull() => health == maxHitPoints;
         public int GetCurrentHitPoints() => health;
-
         
-        [SerializeField, Min(0)] private int maxHitPoints = 10;
-        [SerializeField, Min(0)] private int health = 3;
-
+        [SerializeField, Min(0)] private int maxHitPoints = 100;
+        [SerializeField, Min(0)] private int health = 50;
         
         public void TakeDamage(int damage)
         {
@@ -30,12 +28,13 @@ namespace Components
                 OnTakeDamage?.Invoke(damage);
                 Debug.Log("OnTakeDamage");
             }
+            OnChangeHealth?.Invoke(health);
         }
 
         public void RestoreHitPoints(int healthPoints)
         {
             health = Mathf.Min(health + healthPoints, maxHitPoints);
-            OnRestoreHealth?.Invoke(healthPoints);
+            OnChangeHealth?.Invoke(healthPoints);
         }
     }
 }

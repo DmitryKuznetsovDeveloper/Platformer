@@ -32,9 +32,7 @@ namespace SampleGame
             {
                 return;
             }
-
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            
             Time.timeScale = 1;
             foreach (var it in this.listeners)
             {
@@ -55,9 +53,6 @@ namespace SampleGame
             {
                 return;
             }
-
-            Cursor.lockState = CursorLockMode.Confined;
-            Cursor.visible = true;
             Time.timeScale = 0;
             foreach (var it in this.listeners)
             {
@@ -78,8 +73,6 @@ namespace SampleGame
             {
                 return;
             }
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
             Time.timeScale = 1;
             foreach (var it in this.listeners)
             {

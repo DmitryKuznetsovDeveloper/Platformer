@@ -1,6 +1,5 @@
 ﻿using Components;
 using SampleGame;
-using UnityEngine;
 using Zenject;
 
 namespace Observers
@@ -17,16 +16,10 @@ namespace Observers
             _healthComponent = healthComponent;
             _gameManager = gameManager;
         }
-         void IInitializable.Initialize()
-         {
+         void IInitializable.Initialize() => 
              _healthComponent.OnDeath += _gameManager.FinishGame;
-             Debug.Log($"+++Death podpisca");
-         }
 
-         void IGameFinishListener.OnFinishGame()
-         {
+         void IGameFinishListener.OnFinishGame() => 
              _healthComponent.OnDeath -= _gameManager.FinishGame;
-             Debug.Log($"---Death otpodpisca");
-         }
     }
 }
